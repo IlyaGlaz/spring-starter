@@ -1,13 +1,15 @@
 package com.example.springstarter.dto;
 
-import lombok.Value;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Value
+@Getter
+@Setter
 public class UserReadDto {
-    String username;
-    LocalDate birthDate;
-    String firstname;
-    String lastname;
+    public String username;
+    public LocalDate birthDate;
+    public String firstname;
+    public String lastname;
 }
