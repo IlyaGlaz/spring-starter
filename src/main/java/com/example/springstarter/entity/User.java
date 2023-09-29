@@ -37,6 +37,8 @@ public class User {
 
     private String firstname;
 
+    private String password;
+
     private String lastname;
 
     @ManyToOne()

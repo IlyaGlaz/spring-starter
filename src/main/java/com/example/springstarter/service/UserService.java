@@ -6,6 +6,9 @@ import com.example.springstarter.mappers.UserReadMapper;
 import com.example.springstarter.mappers.UserWriteUpdateMapper;
 import com.example.springstarter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
@@ -53,5 +56,16 @@ public class UserService {
                     userRepository.delete(entity);
                     return true;
                 }).orElse(false);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(user -> new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getAuthorities()
+                ))
+                .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }
 }
