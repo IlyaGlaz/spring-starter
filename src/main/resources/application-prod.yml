@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: ${PGHOST}:${PGPORT}/${PGDATABASE}
+    url: jdbc:${PGHOST}:${PGPORT}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
