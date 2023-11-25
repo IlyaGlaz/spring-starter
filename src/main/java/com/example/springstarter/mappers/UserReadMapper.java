@@ -10,6 +10,7 @@ public class UserReadMapper implements Mapper<User, UserReadDto> {
     public UserReadDto map(User from) {
         UserReadDto userReadDto = new UserReadDto();
 
+        userReadDto.setId(from.getId());
         userReadDto.setUsername(from.getUsername());
         userReadDto.setBirthDate(from.getBirthDate());
         userReadDto.setFirstname(from.getFirstname());
